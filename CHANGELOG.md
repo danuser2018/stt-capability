@@ -27,6 +27,10 @@ Los cambios se agrupan en las siguientes categorías:
   convenciones de commits, guía de Pull Requests y buenas prácticas para
   desarrollo asistido con IA.
 - Fichero `CHANGELOG.md` con el formato Keep a Changelog v1.1.0 en castellano.
+- Implementación completa del servicio STT utilizando FastAPI y Faster-Whisper.
+- Soporte para despliegue aislado mediante `Dockerfile` y `docker-compose.yml`.
+- Configuración de tests unitarios y de integración con `pytest` y dependencias simuladas (mocks).
+- Pipeline de CI con GitHub Actions (`.github/workflows/ci.yml`) para verificar automáticamente los tests y linting (black, flake8) en las Pull Requests.
 
 
 ---

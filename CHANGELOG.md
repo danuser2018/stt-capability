@@ -19,7 +19,7 @@ Los cambios se agrupan en las siguientes categorías:
 
 ---
 
-## Sin publicar
+## [1.0.0] - 2026-06-03
 
 ### Añadido
 
@@ -32,6 +32,7 @@ Los cambios se agrupan en las siguientes categorías:
 - Configuración de tests unitarios y de integración con `pytest` y dependencias simuladas (mocks).
 - Pipeline de CI con GitHub Actions (`.github/workflows/ci.yml`) para verificar automáticamente los tests y linting (black, flake8) en las Pull Requests.
 
+## Sin publicar
 
 ---
 

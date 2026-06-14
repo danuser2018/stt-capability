@@ -19,6 +19,12 @@ Los cambios se agrupan en las siguientes categorías:
 
 ---
 
+## [1.1.0] - 2026-06-14
+
+### Corregido
+
+- Se añade la variable de entorno `HF_HUB_DISABLE_XET` con valor 1 al archivo Dockerfile, para evitar un problema con la descarga del modelo.
+
 ## [1.0.0] - 2026-06-03
 
 ### Añadido

@@ -19,6 +19,12 @@ Los cambios se agrupan en las siguientes categorías:
 
 ---
 
+## Sin publicar
+
+### Añadido
+
+- Carpeta `.agent/skills` creada con información para desarrollo por IA.
+
 ## [1.1.0] - 2026-06-14
 
 ### Corregido
@@ -37,8 +43,6 @@ Los cambios se agrupan en las siguientes categorías:
 - Soporte para despliegue aislado mediante `Dockerfile` y `docker-compose.yml`.
 - Configuración de tests unitarios y de integración con `pytest` y dependencias simuladas (mocks).
 - Pipeline de CI con GitHub Actions (`.github/workflows/ci.yml`) para verificar automáticamente los tests y linting (black, flake8) en las Pull Requests.
-
-## Sin publicar
 
 ---
 

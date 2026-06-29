@@ -80,3 +80,14 @@ def test_transcribe_audio_processing_error(client, mock_stt_service, dummy_wav_f
     assert response.status_code == 400
     assert response.json() == {"error": "invalid_audio"}
 
+
+def test_transcribe_audio_invalid_wav_format(client):
+    # A WAV file with 44100 Hz instead of the expected 16000 Hz
+    invalid_wav = b"RIFF$\x00\x00\x00WAVEfmt \x10\x00\x00\x00\x01\x00\x01\x00D\xac\x00\x00\x88X\x01\x00\x02\x00\x10\x00data\x00\x00\x00\x00"
+    files = {"audio": ("test.wav", invalid_wav, "audio/wav")}
+
+    response = client.post("/v1/transcriptions", files=files)
+
+    assert response.status_code == 400
+    assert response.json() == {"error": "invalid_audio"}
+

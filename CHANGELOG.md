@@ -19,11 +19,20 @@ Los cambios se agrupan en las siguientes categorías:
 
 ---
 
-## Sin publicar
+## [1.2.0] - 2026-06-29
 
 ### Añadido
 
 - Carpeta `.agent/skills` creada con información para desarrollo por IA.
+- Tests unitarios y de integración para validar el comportamiento con audios vacíos y errores de procesamiento.
+
+### Corregido
+
+- Manejo de archivos de audio vacíos (0 bytes) para que retornen una transcripción vacía controlada (HTTP 200) en lugar de un error HTTP 400.
+- Respuestas HTTP ante errores de decodificación de audio, retornando ahora HTTP 400 (`invalid_audio`) en lugar de HTTP 500 (`transcription_failed`).
+- Referencias erróneas al ecosistema Node/JS (Jest, npm) y al servicio `tts` en `CONTRIBUTING.md` y `CHANGELOG.md`.
+- Nombres del directorio de instalación del proyecto en `README.md` para coincidir con `stt-capability`.
+- Ejemplo de configuración de Docker Compose en `README.md` para incluir `LOG_LEVEL` y `PORT`.
 
 ## [1.1.0] - 2026-06-14
 
@@ -70,4 +79,4 @@ Los cambios se agrupan en las siguientes categorías:
 
 -->
 
-[Sin publicar]: https://github.com/danuser2018/tts-capability/compare/HEAD...HEAD
+[Sin publicar]: https://github.com/danuser2018/stt-capability/compare/HEAD...HEAD

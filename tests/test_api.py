@@ -58,3 +58,25 @@ def test_transcribe_runtime_error(client, mock_stt_service, dummy_wav_file):
 
     assert response.status_code == 500
     assert response.json() == {"error": "transcription_failed"}
+
+
+def test_transcribe_audio_empty(client):
+    files = {"audio": ("test.wav", b"", "audio/wav")}
+
+    response = client.post("/v1/transcriptions", files=files)
+
+    assert response.status_code == 200
+    res_data = response.json()
+    assert res_data["text"] == ""
+    assert "processing_ms" in res_data
+
+
+def test_transcribe_audio_processing_error(client, mock_stt_service, dummy_wav_file):
+    mock_stt_service.transcribe.side_effect = Exception("Transcription processing error")
+    files = {"audio": ("test.wav", dummy_wav_file, "audio/wav")}
+
+    response = client.post("/v1/transcriptions", files=files)
+
+    assert response.status_code == 400
+    assert response.json() == {"error": "invalid_audio"}
+

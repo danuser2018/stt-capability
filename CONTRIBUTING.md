@@ -36,7 +36,7 @@ Este proyecto sigue **Trunk Based Development (TBD)**. La rama `main` es el tron
 <tipo>/<descripcion-corta-en-kebab-case>
 
 Ejemplos:
-  feature/tts-voice-selection
+  feature/stt-model-loading
   fix/audio-buffer-overflow
   chore/update-dependencies
   docs/api-reference
@@ -126,13 +126,13 @@ Usamos el estándar **[Conventional Commits](https://www.conventionalcommits.org
 ### Ejemplos
 
 ```
-feat(tts): añadir soporte para voz en español neutro
+feat(stt): añadir soporte para transcripción en gallego
 
 fix(streaming): corregir desbordamiento de buffer en chunks > 32kb
 
-docs(api): documentar endpoint de síntesis de voz
+docs(api): documentar endpoint de transcripción
 
-chore(deps): actualizar openai-sdk a v5.2.1
+chore(deps): actualizar faster-whisper a v1.0.3
 ```
 
 ---
@@ -142,7 +142,7 @@ chore(deps): actualizar openai-sdk a v5.2.1
 ### Antes de abrir una PR
 
 - [ ] El código compila y los tests pasan localmente.
-- [ ] El linter no reporta errores (`npm run lint` o equivalente).
+- [ ] El linter no reporta errores (`flake8` / `black` o equivalente).
 - [ ] La rama está actualizada con `main` (rebase).
 - [ ] El archivo [CHANGELOG.md](file:///home/danuser2018/workspace/stt-capability/CHANGELOG.md) ha sido actualizado bajo la sección `[Sin publicar]`.
 - [ ] La descripción de la PR está completa.
@@ -270,9 +270,9 @@ Requisito claro → Prompt preciso → Revisión crítica → Tests → Commit
 
 | Nivel | Scope | Herramienta sugerida |
 |---|---|---|
-| Unitario | Funciones y módulos individuales | Jest / Vitest |
-| Integración | Interacción entre módulos | Supertest / Jest |
-| E2E | Flujos completos desde el usuario | Playwright / Cypress |
+| Unitario | Funciones y módulos individuales | Pytest / unittest.mock |
+| Integración | Interacción entre módulos | Pytest / FastAPI TestClient |
+| E2E | Flujos completos desde el usuario | Pytest / HTTPX |
 
 ---
 

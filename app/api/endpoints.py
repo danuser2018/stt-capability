@@ -58,7 +58,14 @@ async def transcribe_audio(
     try:
         audio_bytes = await audio.read()
         if not audio_bytes:
-            return JSONResponse(status_code=400, content={"error": "invalid_audio"})
+            processing_ms = int((time.time() - start_time) * 1000)
+            logger.info(f"Empty audio file received, returning empty transcription. session_id: {session_id}")
+            return TranscriptionResponse(
+                text="",
+                language=language or "auto",
+                processing_ms=processing_ms,
+                session_id=session_id,
+            )
 
         result = stt_service.transcribe(audio_bytes, language)
 
@@ -75,5 +82,8 @@ async def transcribe_audio(
         logger.error(f"Runtime error during transcription: {e}")
         return JSONResponse(status_code=503, content={"error": "model_unavailable"})
     except Exception as e:
+        if str(e) == "Transcription processing error":
+            logger.warning(f"Invalid audio format or decoding failed: {e}")
+            return JSONResponse(status_code=400, content={"error": "invalid_audio"})
         logger.error(f"Error during transcription: {e}")
         return JSONResponse(status_code=500, content={"error": "transcription_failed"})

@@ -19,6 +19,16 @@ Los cambios se agrupan en las siguientes categorías:
 
 ---
 
+## Sin publicar
+
+### Añadido
+
+- Test de integración `test_transcribe_audio_invalid_wav_format` para verificar el rechazo de audios con formato físico incorrecto.
+
+### Corregido
+
+- Validación del formato físico del audio recibido (PCM 16-bit, Mono a 16000 Hz) antes de procesar la transcripción, de acuerdo con la invariante de la Skill `inference-subsystem`.
+
 ## [1.2.0] - 2026-06-29
 
 ### Añadido

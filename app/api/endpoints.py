@@ -1,5 +1,6 @@
 import time
 import logging
+import struct
 from fastapi import APIRouter, File, UploadFile, Form
 from fastapi.responses import JSONResponse
 from typing import Optional
@@ -15,6 +16,22 @@ from app.services.stt_service import stt_service
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
+
+
+def validate_wav_header(audio_bytes: bytes) -> bool:
+    """Validates that the WAV file has the expected format: PCM 16-bit Mono at 16000 Hz."""
+    if len(audio_bytes) < 44:
+        return False
+    if audio_bytes[0:4] != b"RIFF" or audio_bytes[8:12] != b"WAVE":
+        return False
+    if audio_bytes[12:16] != b"fmt ":
+        return False
+    try:
+        audio_format, num_channels, sample_rate = struct.unpack("<HHI", audio_bytes[20:28])
+        bits_per_sample = struct.unpack("<H", audio_bytes[34:36])[0]
+        return audio_format == 1 and num_channels == 1 and sample_rate == 16000 and bits_per_sample == 16
+    except Exception:
+        return False
 
 
 @router.get("/health", response_model=HealthResponse)
@@ -66,6 +83,11 @@ async def transcribe_audio(
                 processing_ms=processing_ms,
                 session_id=session_id,
             )
+
+        # Validate WAV format consistency (PCM 16-bit Mono at 16000 Hz)
+        if not validate_wav_header(audio_bytes):
+            logger.warning("Audio header does not match expected format (16kHz, mono, 16-bit PCM WAV)")
+            return JSONResponse(status_code=400, content={"error": "invalid_audio"})
 
         result = stt_service.transcribe(audio_bytes, language)
 

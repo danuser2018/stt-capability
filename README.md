@@ -98,7 +98,7 @@ No es necesario instalar Python localmente para ejecutar el servicio.
 
 ```bash
 git clone <url-del-repositorio>
-cd stt-service
+cd stt-capability
 ```
 
 ## Construir la imagen Docker
@@ -139,6 +139,8 @@ services:
     environment:
       WHISPER_MODEL: base
       WHISPER_DEVICE: cpu
+      LOG_LEVEL: INFO
+      PORT: 8000
 ```
 
 ---
@@ -372,7 +374,7 @@ No debe registrarse:
 # Estructura esperada del proyecto
 
 ```text
-stt-service/
+stt-capability/
 ├── app/
 │   ├── api/
 │   ├── services/
